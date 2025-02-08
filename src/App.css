@@ -3,29 +3,56 @@
 .character-list{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around; 
+  justify-content: space-between; 
   gap:40px 20px;
+
+
+  @media (max-width: 1089px) {
+    justify-content: space-around;
+
+  }
+  @media (max-width:739px) {
+    justify-content: center;
+    
+  }
+
 }
 
 .custom-card{
     /* width: auto; */
+    width: 100%;
     max-width: 330px;
+    /* min-width: 310px; */
     display: grid;
     grid-template-rows: auto 1fr;
     justify-items: center;
+    /* gap:10px; */
+    row-gap:5px;
+    align-items: center;
     border-radius:8px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
     /* overflow: hidden; */
     background:#FFFFFF;
     transition: transform 0.3s linear;
-    padding: 16px;
+    padding: 15px;
+
+
+    @media (max-width: 1400px) {
+
+      /* min-width: 330px; */
+      /* grid-template-columns: 1fr; */
+      /* margin-top: -12px;
+      min-width: 280px;
+      min-height: 211px;
+      grid-gap: 14px;
+      padding: 14px 14px 0px 14px; */
+    }
 
 
   
 }
 
 .custom-card:hover{
-  /* background-color: green; Change background color on hover */
   cursor: pointer;
   transform: scale(1.03);
   

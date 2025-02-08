@@ -88,14 +88,14 @@ export const CharactersList = () => {
 
 
               >
-                <Image src={character.image} wrapped ui={false}
+                <Image src={character.image}  
 
                   style={{
                     width: '100%',
                     maxWidth: '100%',
                     height: 'auto',
-                    // padding:'15px',
-                    boxSizing: 'border-box'
+                    // boxSizing: 'border-box'
+                    borderRadius:"5px"
                   }}
 
                 />
