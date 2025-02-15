@@ -14,6 +14,6 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 14px;
     margin: 0 auto;
     color: #000000;
-    background-color: #F5F5FA; # whisper
-  }`
-  ;
+    background-color: #F5F5DC;
+}`
+;
