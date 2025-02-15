@@ -1,19 +1,18 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-
-width:100%;
-display:flex;
-margin:40px auto;
-justify-content:center;
-align-items:center;
-gap:12px;
-`
+  width: 100%;
+  display: flex;
+  margin: 40px auto;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+`;
 
 export const Button = styled.button`
-background:#d6e4ff;
- min-width: 76px;
-  max-width: 108px;
+  background: #81d4fa;
+  min-width: 76px;
+  max-width: 120px;
   height: 36px;
   border-radius: 5px;
   white-space: nowrap;
@@ -21,18 +20,29 @@ background:#d6e4ff;
   font-weight: 400;
   font-size: 14px;
   line-height: 140%;
-  color:black;
+  color: black;
   display: flex;
   gap: 10px;
+  // padding:5px;
   align-items: center;
   border: none;
   cursor: pointer;
 
   &:disabled {
-  background-color:#E4E6F0;
-  cursor:default;
+    background-color: #e4e6f0;
+    cursor: default;
   }
-`
+  &:not(:disabled):hover {
+    background: #99e0ff;
+  }
+
+  @media (max-width: 767px) {
+    height: 24px;
+    max-width: 38px;
+    min-width: 29px;
+    padding: 8px 5px;
+  }
+`;
 
 export const PageNumber = styled.span`
   font-weight: 600;
@@ -40,8 +50,11 @@ export const PageNumber = styled.span`
   color: black;
 `;
 
-export const TextButton = styled.span`
-`
+export const ButtonText = styled.span`
+  @media (max-width: 767px) {
+    display: none;
+  }
+`;
 
 export const PageIndicator = styled.div`
   padding-top: 8px;
@@ -50,5 +63,11 @@ export const PageIndicator = styled.div`
   line-height: 24px;
   margin-left: 12px;
   margin-right: 12px;
-white-space: nowrap;
-`
+  white-space: nowrap;
+`;
+
+export const VectoSvg = styled.svg`
+  width: 7px;
+  height: 12px;
+  fill: none;
+`;
