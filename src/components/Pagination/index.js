@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router";
 import {
   Wrapper,
   Button,
@@ -16,7 +16,7 @@ const useReplaceQueryParameter = () => {
   const replaceQueryParameter = ({ key, value }) => {
     const searchParams = new URLSearchParams(location.search);
 
-    if (value == undefined) {
+    if (value === undefined) {
       searchParams.delete(key);
     } else {
       searchParams.set(key, value);
@@ -32,7 +32,7 @@ const Pagination = ({ page, totalPages }) => {
   window.onresize = () => setWidth(window.innerWidth);
 
   const replaceQueryParameter = useReplaceQueryParameter();
-  const currentPage = parseInt(page);
+  const currentPage = parseInt(page) < 1 ? 1 : parseInt(page);
   const firstPage = 1;
   const previousPage = currentPage - 1;
   const nextPage = currentPage + 1;
