@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { Container } from "../common/Container/styled";
 import { StyledHeader } from "../common/StyledHeader/styled";
 import { Spinner } from "./styled";
@@ -11,10 +11,7 @@ export const Loader = () => {
 
   return (
     <Container loader>
-      <StyledHeader loader>
-        {message}
-        {"..."}
-      </StyledHeader>
+      <StyledHeader loader>{message}...</StyledHeader>
       <Spinner></Spinner>
     </Container>
   );
