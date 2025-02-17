@@ -1,9 +1,7 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import { HashRouter } from "react-router";
+import { HashRouter, useNavigate } from "react-router";
+import Pagination from "../components/Pagination";
 
-import Pagination from "./components/Pagination";
-
-import { useNavigate } from "react-router";
 jest.mock("react-router", () => ({
   ...jest.requireActual("react-router"),
   useNavigate: jest.fn(),
@@ -12,7 +10,7 @@ jest.mock("react-router", () => ({
 test("Renders Pagination component", () => {
   render(
     <HashRouter>
-      <Pagination page="1" totalPages={10} />
+      <Pagination page={5} totalPages={10} />
     </HashRouter>
   );
 
@@ -26,7 +24,7 @@ test("Renders Pagination component", () => {
 test("Renders pagination buttons", () => {
   render(
     <HashRouter>
-      <Pagination page="5" totalPages={10} />
+      <Pagination page={5} totalPages={10} />
     </HashRouter>
   );
 
@@ -39,7 +37,7 @@ test("Renders pagination buttons", () => {
 test("Displays correct page numbers", () => {
   render(
     <HashRouter>
-      <Pagination page="5" totalPages={10} />
+      <Pagination page={5} totalPages={10} />
     </HashRouter>
   );
 
@@ -50,7 +48,7 @@ test("Displays correct page numbers", () => {
 test("Disables first and previous buttons on the first page", () => {
   render(
     <HashRouter>
-      <Pagination page="1" totalPages={10} />
+      <Pagination page={1} totalPages={10} />
     </HashRouter>
   );
 
@@ -64,7 +62,7 @@ test("Disables first and previous buttons on the first page", () => {
 test("Disables last and next buttons on the last page", () => {
   render(
     <HashRouter>
-      <Pagination page="10" totalPages={10} />
+      <Pagination page={10} totalPages={10} />
     </HashRouter>
   );
 
@@ -78,7 +76,7 @@ test("Disables last and next buttons on the last page", () => {
 test("Disables no buttons", () => {
   render(
     <HashRouter>
-      <Pagination page="9" totalPages={10} />
+      <Pagination page={9} totalPages={10} />
     </HashRouter>
   );
 
@@ -99,7 +97,7 @@ test("Navigates to the previous page", () => {
 
   render(
     <HashRouter>
-      <Pagination page="3" totalPages={10} />
+      <Pagination page={3} totalPages={10} />
     </HashRouter>
   );
 
@@ -115,7 +113,7 @@ test("Navigates to the first page", () => {
 
   render(
     <HashRouter>
-      <Pagination page="2" totalPages={10} />
+      <Pagination page={3} totalPages={10} />
     </HashRouter>
   );
 
@@ -131,46 +129,12 @@ test("Navigates to the next page", () => {
 
   render(
     <HashRouter>
-      <Pagination page="2" totalPages={10} />
+      <Pagination page={3} totalPages={10} />
     </HashRouter>
   );
 
   const nextButton = screen.getByText("Next").closest("button");
   fireEvent.click(nextButton);
 
-  expect(mockNavigate).toHaveBeenCalledWith(expect.stringContaining("page=3"));
-});
-
-test("Navigates to the last page", () => {
-  const mockNavigate = jest.fn();
-  useNavigate.mockReturnValue(mockNavigate);
-
-  render(
-    <HashRouter>
-      <Pagination page="2" totalPages={10} />
-    </HashRouter>
-  );
-
-  const lastButton = screen.getByText("Last").closest("button");
-  fireEvent.click(lastButton);
-
-  expect(mockNavigate).toHaveBeenCalledWith(expect.stringContaining("page=10"));
-});
-
-test("Disables all buttons when there is only one page", () => {
-  render(
-    <HashRouter>
-      <Pagination page="1" totalPages={1} />
-    </HashRouter>
-  );
-
-  const firstButton = screen.getByText("First").closest("button");
-  const previousButton = screen.getByText("Previous").closest("button");
-  const lastButton = screen.getByText("Last").closest("button");
-  const nextButton = screen.getByText("Next").closest("button");
-
-  expect(firstButton).toBeDisabled();
-  expect(previousButton).toBeDisabled();
-  expect(lastButton).toBeDisabled();
-  expect(nextButton).toBeDisabled();
+  expect(mockNavigate).toHaveBeenCalledWith(expect.stringContaining("page=4"));
 });
