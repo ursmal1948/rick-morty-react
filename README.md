@@ -17,9 +17,11 @@ A React application that allows users to browse Rick and Morty characters, navig
 
 ## Additional information
 
-I have changed imports from react-router-dom to react-router because tests were not recognizing react-router-dom properly. This solution was based on information from:
-[Stack Overflow][https://stackoverflow.com/questions/79256904/cannot-detect-installed-react-router-dom-package-when-running-unit-tests]
-[React Router DOM npm ][https://www.npmjs.com/package/react-router-dom]
+I have changed imports from `react-router-dom` to `react-router` because tests were not recognizing `react-router-dom` properly. This solution was based on information from:
+- [Stack Overflow](https://stackoverflow.com/questions/79256904/cannot-detect-installed-react-router-dom-package-when-running-unit-tests)
+- [React Router DOM npm](https://www.npmjs.com/package/react-router-dom)
+
+
 
 ## Available Scripts
 
