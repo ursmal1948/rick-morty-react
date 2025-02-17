@@ -1,9 +1,9 @@
 import { Wrapper } from "./styled";
-import { StyledHeader } from "../StyledHeader/styled";
+import { StyledPageHeader } from "./styled";
 const PageHeader = () => {
   return (
     <Wrapper>
-      <StyledHeader pageHeaderFlag>RICK & MORTY</StyledHeader>
+      <StyledPageHeader>RICK & MORTY</StyledPageHeader>
     </Wrapper>
   );
 };
