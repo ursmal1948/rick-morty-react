@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react";
 import { Card } from "semantic-ui-react";
 import { useLocation } from "react-router-dom";
@@ -13,29 +12,26 @@ import {
   CardHeader,
   CardDetail,
   StyledParagraph,
+  Container,
 } from "./styled";
 import { StyledHeader } from "../../components/StyledHeader/styled";
 import { StatusDropdown } from "../../components/Dropdown";
 import Pagination from "../../components/Pagination";
-import { Container } from "./styled";
 import { Loader } from "../../components/Loader";
-
-const useQueryParameter = (key) => {
-  const location = useLocation();
-  return new URLSearchParams(location.search).get(key);
-};
+import { useQueryParameter } from "../../hooks/query/useQueryParameter";
 
 const CharactersList = () => {
-  let page = useQueryParameter("page");
+  let page = parseInt(useQueryParameter("page"));
+  const [totalPages, setTotalPages] = useState();
 
-  if (!page) page = 1;
+  if (!page || page < 1) page = 1;
+  if (page > totalPages) page = totalPages;
 
   const location = useLocation();
   const status = useQueryParameter("status");
   const [characters, setCharacters] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [totalPages, setTotalPages] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,14 +46,12 @@ const CharactersList = () => {
         } else {
           data = await getCharacters(page);
         }
-        // }
         if (data) {
-          setCharacters(data.results.slice(0, 20));
+          setCharacters(data.results);
           setTotalPages(data.info.pages);
         }
       } catch (err) {
         setError(err);
-        console.log(error);
       } finally {
         setLoading(false);
       }
@@ -71,13 +65,13 @@ const CharactersList = () => {
     <Container charactersListFlag>
       <div>
         <Wrapper>
-          <StyledHeader charactersListFlag>Characters' list</StyledHeader>
-          <StatusDropdown />
+          <StyledHeader charactersListFlag>List of characters</StyledHeader>
+          <StatusDropdown dropdownId="dropdown1" />
         </Wrapper>
         <List>
           {characters.map((character) => (
-            <StyledLink to={`/characters/${character.id}`}>
-              <StyledCard key={character.id}>
+            <StyledLink to={`/characters/${character.id}`} key={character.id}>
+              <StyledCard>
                 <StyledImage src={character.image} />
                 <CardContent>
                   <CardHeader>{character.name}</CardHeader>
