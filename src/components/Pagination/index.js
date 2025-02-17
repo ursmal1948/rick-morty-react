@@ -1,38 +1,20 @@
 import { useState } from "react";
-import { useLocation, useNavigate } from "react-router";
 import {
   Wrapper,
-  Button,
   PageNumber,
   PageIndicator,
   ButtonText,
 } from "./styled";
+import { StyledButton } from "../StyledButton/styled";
 import { BackwardVector, ForwardVector } from "./arrows";
-
-const useReplaceQueryParameter = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const replaceQueryParameter = ({ key, value }) => {
-    const searchParams = new URLSearchParams(location.search);
-
-    if (value === undefined) {
-      searchParams.delete(key);
-    } else {
-      searchParams.set(key, value);
-    }
-    const newSearch = searchParams.toString();
-    return navigate(`${location.pathname}?${newSearch}`);
-  };
-  return replaceQueryParameter;
-};
+import { useReplaceQueryParameter } from "../../hooks/query/useReplaceQueryParameter";
 
 const Pagination = ({ page, totalPages }) => {
   const [width, setWidth] = useState(window.innerWidth);
   window.onresize = () => setWidth(window.innerWidth);
 
   const replaceQueryParameter = useReplaceQueryParameter();
-  const currentPage = parseInt(page) < 1 ? 1 : parseInt(page);
+  const currentPage = page < 1 ? 1 : page;
   const firstPage = 1;
   const previousPage = currentPage - 1;
   const nextPage = currentPage + 1;
@@ -42,60 +24,57 @@ const Pagination = ({ page, totalPages }) => {
   const isScreenSmall = width < 767;
 
   const goToPage = (targetPage) => {
+    if (targetPage < 1) targetPage = 1;
+    if (targetPage > totalPages) targetPage = totalPages;
+
     replaceQueryParameter({
       key: "page",
       value: targetPage,
     });
-
-    // window.scrollTo({
-    //     top: 0,
-    //     behavior: "smooth"
-    // })
   };
-
   return (
     <Wrapper>
-      <Button
+      <StyledButton
+        characterListFlag
         onClick={() => goToPage(firstPage)}
-        disabled={currentPage === 1 ? true : false}
+        disabled={currentPage === 1}
       >
-        <BackwardVector disabled={currentPage === 1 ? true : false} />
-        {isScreenSmall && (
-          <BackwardVector disabled={currentPage === 1 ? true : false} />
-        )}
+        <BackwardVector disabled={currentPage === 1} />
+        {isScreenSmall && <BackwardVector disabled={currentPage === 1} />}
         <ButtonText>First</ButtonText>
-      </Button>
+      </StyledButton>
 
-      <Button
+      <StyledButton
+        characterListFlag
         onClick={() => goToPage(previousPage)}
-        disabled={currentPage === 1 ? true : false}
+        disabled={currentPage === 1}
       >
-        <BackwardVector disabled={currentPage === 1 ? true : false} />
+        <BackwardVector disabled={currentPage === 1} />
         <ButtonText>Previous</ButtonText>
-      </Button>
+      </StyledButton>
       <PageIndicator>
         <PageNumber>{currentPage} </PageNumber> of{" "}
         <PageNumber>{pages}</PageNumber>
       </PageIndicator>
 
-      <Button
+      <StyledButton
+        characterListFlag
         onClick={() => goToPage(nextPage)}
-        disabled={currentPage === pages ? true : false}
+        disabled={currentPage === pages}
       >
         <ButtonText>Next</ButtonText>
-        <ForwardVector disabled={currentPage === pages ? true : false} />
-      </Button>
+        <ForwardVector disabled={currentPage === pages} />
+      </StyledButton>
 
-      <Button
+      <StyledButton
+        characterListFlag
         onClick={() => goToPage(lastPage)}
-        disabled={currentPage === pages ? true : false}
+        disabled={currentPage === pages}
       >
         <ButtonText>Last</ButtonText>
-        <ForwardVector disabled={currentPage === pages ? true : false} />
-        {isScreenSmall && (
-          <ForwardVector disabled={currentPage === pages ? true : false} />
-        )}
-      </Button>
+        <ForwardVector disabled={currentPage === pages} />
+        {isScreenSmall && <ForwardVector disabled={currentPage === pages} />}
+      </StyledButton>
     </Wrapper>
   );
 };
