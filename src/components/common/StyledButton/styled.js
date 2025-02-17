@@ -2,20 +2,19 @@ import styled, { css } from "styled-components";
 
 export const StyledButton = styled.button`
   background: #81d4fa;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 16px;
   min-width: 76px;
   max-width: 120px;
   height: 36px;
   border-radius: 5px;
   white-space: nowrap;
-  padding: 8px 16px;
   font-weight: 400;
   font-size: 14px;
   line-height: 140%;
   color: black;
-  display: flex;
-  gap: 10px;
-  // padding:5px;
-  align-items: center;
   border: none;
   cursor: pointer;
 
@@ -28,10 +27,6 @@ export const StyledButton = styled.button`
       cursor: pointer;
       margin-top: 25px;
       margin-bottom: 10px;
-      // max-width:auto;
-
-      @media (max-width: 500px) {
-      }
     `}
 
   ${({ characterListFlag }) =>
