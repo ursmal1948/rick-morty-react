@@ -2,9 +2,16 @@ import { useEffect, useState } from "react";
 import { Card } from "semantic-ui-react";
 import { useLocation } from "react-router-dom";
 import { getCharactersByStatus, getCharacters } from "../api/apiData";
+import { Wrapper, List } from "./styled";
+
+import { Container } from "../../components/common/Container/styled";
+import { StyledHeader } from "../../components/common/StyledHeader/styled";
+import { StatusDropdown } from "../../components/Dropdown";
+import Pagination from "../../components/Pagination";
+import { Loader } from "../../components/Loader";
+import { useQueryParameter } from "../../hooks/query/useQueryParameter";
+import { ErrorPage } from "../../components/ErrorPage";
 import {
-  Wrapper,
-  List,
   StyledCard,
   StyledLink,
   StyledImage,
@@ -12,13 +19,7 @@ import {
   CardHeader,
   CardDetail,
   StyledParagraph,
-  Container,
-} from "./styled";
-import { StyledHeader } from "../../components/StyledHeader/styled";
-import { StatusDropdown } from "../../components/Dropdown";
-import Pagination from "../../components/Pagination";
-import { Loader } from "../../components/Loader";
-import { useQueryParameter } from "../../hooks/query/useQueryParameter";
+} from "../../components/common/CharacterCard/styled";
 
 const CharactersList = () => {
   let page = parseInt(useQueryParameter("page"));
@@ -36,7 +37,7 @@ const CharactersList = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      setError(null);
+      setError(false);
 
       try {
         let data;
@@ -51,7 +52,7 @@ const CharactersList = () => {
           setTotalPages(data.info.pages);
         }
       } catch (err) {
-        setError(err);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -61,6 +62,8 @@ const CharactersList = () => {
 
   return loading ? (
     <Loader />
+  ) : error ? (
+    <ErrorPage />
   ) : (
     <Container charactersListFlag>
       <div>

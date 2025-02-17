@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Card } from "semantic-ui-react";
 import { getCharacterDetails } from "../api/apiData";
-import { StyledHeader } from "../../components/StyledHeader/styled";
-import { StyledButton } from "../../components/StyledButton/styled";
+import { StyledHeader } from "../../components/common/StyledHeader/styled";
+import { StyledButton } from "../../components/common/StyledButton/styled";
+import { Container } from "../../components/common/Container/styled";
 import { Loader } from "../../components/Loader";
 import {
   StyledCard,
@@ -12,9 +13,10 @@ import {
   CardHeader,
   CardDetail,
   StyledParagraph,
-  Container,
-} from "../CharactersList/styled";
+} from "../../components/common/CharacterCard/styled";
+
 import { ExtraContent } from "./styled";
+import { ErrorPage } from "../../components/ErrorPage";
 
 const CharacterDetails = () => {
   const { id } = useParams();
@@ -29,7 +31,7 @@ const CharacterDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      setError(null);
+      setError(false);
 
       try {
         const characterDetails = await getCharacterDetails(id);
@@ -38,7 +40,7 @@ const CharacterDetails = () => {
           setStatus(characterDetails.status);
         }
       } catch (err) {
-        setError(err);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -49,6 +51,8 @@ const CharacterDetails = () => {
 
   return loading ? (
     <Loader />
+  ) : error ? (
+    <ErrorPage />
   ) : (
     <Container characterDetailsFlag>
       <div>
@@ -61,7 +65,7 @@ const CharacterDetails = () => {
           <CardHeader>{character.name}</CardHeader>
           <CardDetail>{character.species}</CardDetail>
           <Card.Description>
-            <StyledParagraph characterDetailsFlag>
+            <StyledParagraph>
               {status === "Alive"
                 ? "✅ Alive"
                 : status === "Dead"
