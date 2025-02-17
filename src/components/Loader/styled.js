@@ -16,4 +16,9 @@ export const Spinner = styled.div`
       transform: rotate(360deg);
     }
   }
+
+  @media (max-width: 500px) {
+    width: 65px;
+    height: 65px;
+  }
 `;
