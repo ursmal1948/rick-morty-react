@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Option, Select } from "./styled";
 import { Wrapper } from "./styled";
 
-export const StatusDropdown = () => {
+export const StatusDropdown = ({dropdownId}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialSelectedValue = searchParams.get("status") || "";
 
@@ -24,7 +24,7 @@ export const StatusDropdown = () => {
 
   return (
     <Wrapper>
-      <Select id="dropdown" value={selectedValue} onChange={handleChange}>
+      <Select id={dropdownId} value={selectedValue} onChange={handleChange}>
         <Option value="">Select value</Option>
         <Option value="alive">Alive</Option>
         <Option value="dead">Dead</Option>
