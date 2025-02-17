@@ -1,23 +1,23 @@
-import axios from "axios";
-
-const baseUrl = "https://rickandmortyapi.com/api";
+import rmdb from "./rmdb";
 
 export const getCharacters = async (page) => {
   try {
-    const response = await axios.get(`${baseUrl}/character?page=${page}`);
+    const url = `character?page=${page}`;
+    const response = await rmdb.get(url);
 
     if (!response || !response.data) {
-      throw new Error(`Invalid getMovies response data for page`);
+      throw new Error(`Invalid getCharacters response data for page`);
     }
     return response.data;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };
 
 export const getCharacterDetails = async (characterId) => {
   try {
-    const response = await axios.get(`${baseUrl}/character/${characterId}`);
+    const url = `character/${characterId}`;
+    const response = await rmdb.get(url);
 
     if (!response || !response.data) {
       throw new Error(
@@ -26,20 +26,20 @@ export const getCharacterDetails = async (characterId) => {
     }
     return response.data;
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 };
 
-export const getCharactersByStatus = async (status = "alive", page = 1) => {
+export const getCharactersByStatus = async (status, page) => {
   try {
-    const response = await axios.get(
-      `${baseUrl}/character?status=${status}&page=${page}`
-    );
+    const url = `character?status=${status}&page=${page}`;
+    const response = await rmdb.get(url);
+
     if (!response || !response.data) {
       throw new Error(`Invalid response for filtering by status: ${status}`);
     }
     return response.data;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
