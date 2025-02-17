@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { Card, Image } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 export const StyledCard = styled(Card)`
   width: 100%;

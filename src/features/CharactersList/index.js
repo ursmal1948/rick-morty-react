@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card } from "semantic-ui-react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { getCharactersByStatus, getCharacters } from "../api/apiData";
 import { Wrapper, List } from "./styled";
 
