@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Card, Button } from "semantic-ui-react";
-import { getCharacterDetails } from "../../features/api/apiData";
+import { Card } from "semantic-ui-react";
+import { getCharacterDetails } from "../api/apiData";
 import { StyledHeader } from "../../components/StyledHeader/styled";
+import { StyledButton } from "../../components/StyledButton/styled";
 import { Loader } from "../../components/Loader";
 import {
   StyledCard,
@@ -12,7 +13,7 @@ import {
   CardDetail,
   StyledParagraph,
   Container,
-} from "../../features/CharactersList/styled";
+} from "../CharactersList/styled";
 import { ExtraContent } from "./styled";
 
 const CharacterDetails = () => {
@@ -20,18 +21,29 @@ const CharacterDetails = () => {
 
   const [character, setCharacter] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [status, setStatus] = useState("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      const characterDetails = await getCharacterDetails(id);
-      if (characterDetails) {
-        setCharacter(characterDetails);
+      setLoading(true);
+      setError(null);
+
+      try {
+        const characterDetails = await getCharacterDetails(id);
+        if (characterDetails) {
+          setCharacter(characterDetails);
+          setStatus(characterDetails.status);
+        }
+      } catch (err) {
+        setError(err);
+      } finally {
         setLoading(false);
-        console.log(characterDetails.results);
       }
     };
+
     fetchData();
   }, [id]);
 
@@ -40,36 +52,40 @@ const CharacterDetails = () => {
   ) : (
     <Container characterDetailsFlag>
       <div>
-        <StyledHeader characterDetailsFlag>CharacterDetails</StyledHeader>
+        <StyledHeader characterDetailsFlag>Character's details</StyledHeader>
       </div>
 
       <StyledCard characterDetailsFlag key={character.id}>
         <StyledImage src={character.image} />
-        <CardContent>
+        <CardContent characterDetailsFlag>
           <CardHeader>{character.name}</CardHeader>
           <CardDetail>{character.species}</CardDetail>
           <Card.Description>
             <StyledParagraph characterDetailsFlag>
-              {character.status === "Alive"
+              {status === "Alive"
                 ? "✅ Alive"
-                : character.status === "Dead"
+                : status === "Dead"
                 ? "❌ Dead"
                 : "❓ Unknown"}{" "}
               | {character.gender}
               <ExtraContent>
                 <p>
                   <p>Origin: {character.origin.name}</p>
-                  <p> Lcation : {character.location?.name}</p>
+                  <p> Location: {character.location.name}</p>
                   <p>Number of episodes: {character.episode.length}</p>
-                  <p>Created: {character.created}</p>
+                  <p>
+                    Created:{" "}
+                    {new Date(character.created).toISOString().split("T")[0]}
+                  </p>
                 </p>
               </ExtraContent>
             </StyledParagraph>
           </Card.Description>
         </CardContent>
       </StyledCard>
-
-      <Button onClick={() => navigate(-1)}>Go to last page</Button>
+      <StyledButton characterDetailsFlag onClick={() => navigate(-1)}>
+        Return to Characters
+      </StyledButton>
     </Container>
   );
 };
