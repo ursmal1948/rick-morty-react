@@ -5,7 +5,7 @@ import {
   PageIndicator,
   ButtonText,
 } from "./styled";
-import { StyledButton } from "../StyledButton/styled";
+import { StyledButton } from "../common/StyledButton/styled";
 import { BackwardVector, ForwardVector } from "./arrows";
 import { useReplaceQueryParameter } from "../../hooks/query/useReplaceQueryParameter";
 

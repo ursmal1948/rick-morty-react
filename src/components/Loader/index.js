@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
-import { Container } from "../../features/CharactersList/styled";
+import { Container } from "../common/Container/styled";
+import { StyledHeader } from "../common/StyledHeader/styled";
 import { Spinner } from "./styled";
-import { StyledHeader } from "../StyledHeader/styled";
 
 export const Loader = () => {
   const location = useLocation();
