@@ -2,11 +2,6 @@ import styled, { css } from "styled-components";
 import { Card, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
-
-
-
-
-
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -15,33 +10,23 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-
-
-        ${({ loader }) =>
+  ${({ loader }) =>
     loader &&
     css`
       padding: 0px 40px 50px;
-
-    
-
-    `
-  }
+    `}
   ${({ charactersListFlag }) =>
     charactersListFlag &&
     css`
-    padding:55px 35px 3px;
-
-  `
-  }
+      padding: 55px 35px 3px;
+    `}
 
     ${({ characterDetailsFlag }) =>
-      characterDetailsFlag &&
+    characterDetailsFlag &&
     css`
-    padding:55px 35px 3px;
-
-  `
-  }
-`
+      padding: 55px 35px 3px;
+    `}
+`;
 
 export const List = styled.div`
   display: flex;
@@ -58,108 +43,116 @@ export const List = styled.div`
     justify-content: center; 
   }
 }
-`
+`;
 
 export const Wrapper = styled.div`
-display:flex;
-justify-content:space-between;
-// margin-right:5px;
-`
+  display: flex;
+  justify-content: space-between;
+  gap: 2px;
 
+  @media (max-width: 372px) {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+`;
 
 export const StyledCard = styled(Card)`
-
   width: 100%;
   max-width: 330px;
   display: grid;
   grid-template-rows: auto 1fr;
   justify-items: center;
-  /* gap:10px; */
-  row-gap:5px;
+  row-gap: 5px;
   align-items: center;
-  border-radius:8px;
+  border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  background:#FFFFFF;
+  background: #ffffff;
   transition: transform 0.3s linear;
   padding: 15px;
   max-height: 430px;
 
-    &:hover{
-      cursor: pointer;
-      transform: scale(1.03);
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.03);
   }
 
-    ${({ characterDetailsFlag }) =>
-      characterDetailsFlag &&
-    css`
+  @media (max-width: 500px) {
+    width: 100%;
+    max-width: 280px;
+  }
 
-      max-width:700px;
+  ${({ characterDetailsFlag }) =>
+    characterDetailsFlag &&
+    css`
+      max-width: 700px;
       // grid-template-rows:auto 1fr;
-      grid-template-columns:auto 1fr;
+      grid-template-columns: auto 1fr;
 
       // align-items:start;
 
-      @media (max-width:739px) {
-        //  justify-content: center; 
-          // grid-template-rows:auto 1fr;
-          grid-template-columns:none;
-          max-height:730px;
-          width:auto;
-
-  }
-
+      @media (max-width: 739px) {
+        //  justify-content: center;
+        // grid-template-rows:auto 1fr;
+        grid-template-columns: none;
+        max-height: 730px;
+        width: auto;
+      }
     `}
+`;
 
-    
-      
-`
-
-export const CardContent=styled(Card.Content)`
+export const CardContent = styled(Card.Content)`
   display: flex; // dodalam terraz
   flex-direction: column; // dodalam teraz
-  text-align:center;
-`
+  text-align: center;
+
+  ${({ characterDetailsFlag }) =>
+    characterDetailsFlag &&
+    css`
+      // align-self: flex-end;
+      margin-bottom: 10px;
+
+      @media (max-width: 739px) {
+      // align-self:flex-end;
+
+      }
+    `}
+`;
 
 export const CardHeader = styled(Card.Header)`
   font-size: 22px;
-  word-wrap:break-word;
+  word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
   text-align: center;
-
-`
+`;
 
 export const CardDetail = styled(Card.Meta)`
   font-size: 16px;
-  color:#7E839A;
-
-`
+  color: #7e839a;
+`;
 export const StyledParagraph = styled.p`
-
   font-size: 16px;
   font-weight: 500;
 
-
-   ${({ characterDetailsFlag }) =>
-      characterDetailsFlag &&
+  ${({ characterDetailsFlag }) =>
+    characterDetailsFlag &&
     css`
-
       // align-self:flex-start;
       // justify-self:flex-end;
       // display:flex;
-
     `}
-  `
+`;
 
 export const StyledLink = styled(Link)`
-  text-decoration:none;
-  color:inherit
-`
+  text-decoration: none;
+  color: inherit;
+`;
 
 export const StyledImage = styled(Image)`
   width: 100%;
   max-width: 100%;
-  width: 300px;// dodalam
-  height: auto; // todo dodac height 300 i pozniej bede zmniejszala. height bedzie auto. 
+  width: 300px; // dodalam
+  height: auto; // todo dodac height 300 i pozniej bede zmniejszala. height bedzie auto.
   border-radius: 5px;
-`
+`;
