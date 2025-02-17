@@ -1,9 +1,9 @@
 import { Wrapper } from "./styled";
 import { StyledPageHeader } from "./styled";
-const PageHeader = () => {
+const PageHeader = ({message}) => {
   return (
     <Wrapper>
-      <StyledPageHeader>RICK & MORTY</StyledPageHeader>
+      <StyledPageHeader>{message}</StyledPageHeader>
     </Wrapper>
   );
 };
